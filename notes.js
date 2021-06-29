@@ -1,25 +1,29 @@
-const chalk = require('chalk');
+const fs = require('fs');
 
+const addNotes = function (title, body) {
+    const notes = loadNotes()
 
-const addNotes = function (argv) {
-    console.log(chalk.white.bold.bgBlue(`Title:\n  ${argv.title} \nNote: \n  ${argv.body}`));
+    notes.push({
+        title: title,
+        body: body
+    })
+    saveNotes(notes)
 }
 
-const removeNotes = function () {
-    console.log(chalk.white.italic.bgRed('Removing a new note!'));
+const saveNotes = function (notes) {
+    const dataJSON = JSON.stringify(notes)
+    fs.writeFileSync('notes.json', dataJSON)
 }
-
-const listNotes = function () {
-    console.log(chalk.white.italic.bgGray('Listing out all notes!'));
-}
-
-const readNotes = function () {
-    console.log(chalk.white.italic.bgGreen('Reading a note!'));
+const loadNotes = function() {
+    try {
+        const dataBuffer = fs.readFileSync('notes.json')
+        const dataJSON = dataBuffer.toString()
+        return JSON.parse(dataJSON)
+    } catch (err) {
+        return []
+    }
 }
 
 module.exports = {
-    addNotes,
-    removeNotes,
-    listNotes,
-    readNotes
-};
+    addNotes: addNotes
+}
