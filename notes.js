@@ -18,6 +18,21 @@ const addNotes = function (title, body) {
     }
 }
 
+const removeNotes = function (title) {
+    const notes = loadNotes()
+    const duplicateNotes = notes.filter(function (note) {
+        return note.title === title
+    })
+    if (duplicateNotes.length === 0 ) {
+        console.log('the title doesn exist')
+    } else {
+        console.log(notes.title)
+        delete title
+        console.log('Note deleted!')
+    }
+    delete notes.title
+}
+
 const saveNotes = function (notes) {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
@@ -33,5 +48,6 @@ const loadNotes = function() {
 }
 
 module.exports = {
-    addNotes: addNotes
+    addNotes: addNotes,
+    removeNotes: removeNotes
 }
