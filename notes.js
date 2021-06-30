@@ -20,17 +20,11 @@ const addNotes = function (title, body) {
 
 const removeNotes = function (title) {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter(function (note) {
-        return note.title === title
+    const notesToKeep = notes.filter(function (note) {
+        return note.title !== title
     })
-    if (duplicateNotes.length === 0 ) {
-        console.log('the title doesn exist')
-    } else {
-        console.log(notes.title)
-        delete title
-        console.log('Note deleted!')
-    }
-    delete notes.title
+    saveNotes(notesToKeep)
+    console.log("note removed!")
 }
 
 const saveNotes = function (notes) {
