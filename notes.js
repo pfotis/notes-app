@@ -5,8 +5,10 @@ const { constants } = require('buffer');
 
 const addNotes = (title, body) => {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter((note) => note.title === title)
-    if (duplicateNotes.length === 0 ) {
+    // const duplicateNotes = notes.filter((note) => note.title === title)
+    const duplicateNote = notes.find((note) => note.title === title)
+
+    if (!duplicateNote) {
         notes.push({
             title: title,
             body: body
@@ -37,6 +39,17 @@ const listNotes = () => {
     })
 }
 
+const readNotes = (title) => {
+    const notes = loadNotes()
+    const readNote = notes.find((note) => note.title === title)
+    if(readNote){
+        console.log(chalk.gray.inverse.italic(readNote.title))
+        console.log(readNote.body)
+    } else {
+        console.log(chalk.red.inverse("no note found"))
+    }
+}
+
 const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
@@ -54,5 +67,6 @@ const loadNotes = () => {
 module.exports = {
     addNotes: addNotes,
     removeNotes: removeNotes,
-    listNotes: listNotes
+    listNotes: listNotes,
+    readNotes: readNotes
 }
