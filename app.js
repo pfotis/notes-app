@@ -1,7 +1,7 @@
 const yargs = require('yargs');
 const notes = require('./notes.js');
 
-yargs.version('1.1.1');
+yargs.version('1.1.0');
 
 yargs.command({
     command: 'add',
@@ -40,7 +40,7 @@ yargs.command({
 
 yargs.command({
     command: 'list',
-    describe: 'List a new note',
+    describe: 'List of notes',
     handler() {
         notes.listNotes();
     }
