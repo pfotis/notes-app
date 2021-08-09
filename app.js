@@ -48,7 +48,7 @@ yargs.command({
 
 yargs.command({
     command: 'read',
-    describe: 'Read a new note',
+    describe: 'Read a note',
     builder: {
         title: {
             describe: 'Note title',
